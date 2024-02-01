@@ -3,7 +3,7 @@ require_relative('player.rb')
 
 
 class Board
-  attr_accessor :board_cases, :count_turn
+  attr_accessor :board_cases
 
   def initialize
     @board_cases = create_board_cases
@@ -11,9 +11,8 @@ class Board
   end
 
   def play_turn(player)
-    puts "#{player.name}, c'est à toi de jouer !"
     display_board
-
+    puts "#{player.name}, c'est à toi de jouer !"
     puts "Choisis une case (A1, B2, C3, etc.) : "
     chosen_position = gets.chomp.upcase
 
@@ -26,15 +25,43 @@ class Board
     end
   end
 
+  def check_lines
+    ('A'..'C').any? do |row|
+      values = (1..3).map { |col| @board_cases["#{row}#{col}"].value }
+      puts "Line #{row}: #{values}"
+      values.uniq.length == 1 && values.first != " "
+    end
+  end
+  
+  def check_columns
+    (1..3).any? do |col|
+      values = ('A'..'C').map { |row| @board_cases["#{row}#{col}"].value }
+      puts "Column #{col}: #{values}"
+      values.uniq.length == 1 && values.first != " "
+    end
+  end
+  
+  def check_diagonals
+    diagonals_values = [
+      ('A'..'C').map { |row| @board_cases["#{row}#{row}"]&.value },
+      ('A'..'C').map { |row| @board_cases["#{row}#{4 - row.ord}"]&.value }
+    ]
+  
+    diagonals_values.any? do |values|
+      puts "Diagonal: #{values}"
+      values&.compact&.uniq&.length == 1 && values&.first != " "
+    end
+  end
+  
+  
   def victory?
-    # Méthode qui vérifie le plateau et indique s'il y a un vainqueur ou match nul
-    # (à implémenter selon les règles du morpion)
+    # Vérification des lignes, colonnes et diagonales
+    return true if check_lines || check_columns || check_diagonals
+
+    false
   end
 
-  
-
   def create_board_cases
-    # Crée les 9 instances de BoardCase avec des positions uniques
     board_cases = {}
     ('A'..'C').each do |row|
       (1..3).each do |col|
@@ -46,7 +73,6 @@ class Board
   end
 
   def display_board
-    # Affiche le plateau de jeu
     puts "-----"
     ('A'..'C').each do |row|
       (1..3).each do |col|
@@ -59,17 +85,16 @@ class Board
   end
 
   def valid_move?(position)
-    # Vérifie si la case choisie est valide (non occupée)
     @board_cases[position].value == " "
   end
 
   def update_board_case(position, value)
-    # Met à jour la valeur de la case choisie par le joueur
+    puts "Mise à jour de la case #{position} avec la valeur #{value}"
     @board_cases[position].value = value
   end
+
 
   def full_board?
     @count_turn == 9
   end
-  
 end

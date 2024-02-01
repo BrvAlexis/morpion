@@ -8,7 +8,7 @@ class Game
   def initialize
     @players = create_players
     @board = Board.new
-    @status = "on going"
+    @status = "Début de partie !"
     @current_player = @players.first
   end
 
@@ -16,11 +16,13 @@ class Game
     display_status
     @board.display_board
     @board.play_turn(@current_player)
-    
+
     if @board.victory?
+      puts "Victoire détectée !"
       @status = @current_player
       game_end
     elsif @board.full_board?
+      puts "Match nul détecté !"
       @status = "draw"
       game_end
     else
@@ -29,34 +31,23 @@ class Game
     end
   end
 
+
   def new_round
     @board = Board.new
-    @status = "on going"
+    @status = "A t-on tour !"
     @current_player = @players.first
     turn
   end
 
   def game_end
-    display_status
-
-    case @status
-    when Player
+    if @board.victory?
       puts "#{current_player.name} remporte la partie !"
-    when "draw"
-      puts "Match nul !"
-    end
-
-    puts "Voulez-vous faire une nouvelle partie ? (O/N)"
-    choice = gets.chomp.upcase
-
-    if choice == 'O'
-      new_round
     else
-      puts "Merci d'avoir joué !"
+      puts "La partie est un match nul."
     end
   end
 
-  private
+  
 
   def create_players
     puts "Entrez le nom du joueur 1 :"
@@ -76,7 +67,7 @@ class Game
 
   def display_status
     puts "---------------"
-    puts "Statut de la partie : #{@status}"
+    puts "#{@status}"
     puts "---------------"
   end
 end
