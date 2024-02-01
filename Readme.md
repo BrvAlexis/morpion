@@ -1,6 +1,5 @@
-      # morpion_thp
-  
-   Morpion Game - POO Project
+Morpion Game - POO Project
+
 Introduction
 
 Bienvenue dans ce projet de création d'un jeu de morpion en utilisant la programmation orientée objet (POO). 
