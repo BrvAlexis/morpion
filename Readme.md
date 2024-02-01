@@ -19,7 +19,7 @@ Propose de lancer une nouvelle partie à la fin du jeu.
 Comment lancer le jeu
 Prérequis
 Assurez-vous d'avoir Ruby installé sur votre machine.
-Clonez le dépôt du jeu depuis GitHub : git clone [https://github.com/votre-utilisateur/morpion.git]
+Clonez le dépôt du jeu depuis GitHub : git clone (https://github.com/BrvAlexis/morpion.git)
 Accédez au répertoire du jeu : cd morpion
 Exécution
 Lancez le jeu en exécutant le fichier principal : application.rb
