@@ -18,12 +18,12 @@ class Game
     @board.play_turn(@current_player)
 
     if @board.victory?
-      puts "Victoire détectée !"
+      
       @status = @current_player
       game_end
     elsif @board.full_board?
       puts "Match nul détecté !"
-      @status = "draw"
+      @status = "joue"
       game_end
     else
       switch_current_player

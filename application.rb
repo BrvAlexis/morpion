@@ -8,7 +8,7 @@ require_relative('lib/game.rb')
 require_relative('lib/show.rb')
 
 
-# app.rb
+
 
 class Application
   def perform
@@ -23,7 +23,7 @@ class Application
     puts "Merci d'avoir joué !"
   end
 
-  private
+ 
 
   def play_again?
     puts "Voulez-vous jouer une nouvelle partie ? (O/N)"
@@ -32,10 +32,10 @@ class Application
   end
 end
 
-# Main code
 
-app = Application.new
-app.perform
+
+ Application.new.perform
+
 
 
 
